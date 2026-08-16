@@ -315,6 +315,51 @@ class _PlayerSettingsPageState extends ConsumerState<PlayerSettingsPage> {
         const SizedBox(height: 12),
         ...settingsListGroup(
           context,
+          SettingsLabelDivider(label: context.localized.playbackRate),
+          [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    context.localized.defaultPlaybackRateTitle,
+                    style: Theme.of(context).textTheme.titleLarge,
+                  ),
+                  if (context.localized.defaultPlaybackRateDesc.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 8),
+                      child: Text(
+                        context.localized.defaultPlaybackRateDesc,
+                        style: Theme.of(context).textTheme.bodyMedium,
+                      ),
+                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: FladderSlider(
+                          min: 0.25,
+                          max: 3.0,
+                          value: videoSettings.defaultPlaybackRate,
+                          divisions: 55,
+                          onChanged: (value) => provider.setDefaultPlaybackRate(value),
+                        ),
+                      ),
+                      const SizedBox(width: 12),
+                      Text(
+                        "${videoSettings.defaultPlaybackRate.toStringAsFixed(2)}x",
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 12),
+        ...settingsListGroup(
+          context,
           SettingsLabelDivider(label: context.localized.playbackTrackSelection),
           [
             SettingsListTile(

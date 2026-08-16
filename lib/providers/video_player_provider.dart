@@ -118,10 +118,11 @@ class VideoPlayerNotifier extends StateNotifier<MediaControlsWrapper> {
   Future<bool> loadPlaybackItem(PlaybackModel model, Duration startPosition) async {
     ref.read(playBackModel)?.dispose();
     await state.stop();
-    ref.read(playbackRateProvider.notifier).state = 1.0;
 
     final useMinimizedPlayer =
         model.item.type == FladderItemType.audio || model.mediaStreams?.videoStreams.isEmpty == true;
+    final defaultPlaybackRate = ref.read(videoPlayerSettingsProvider).defaultPlaybackRate;
+    ref.read(playbackRateProvider.notifier).state = useMinimizedPlayer ? 1.0 : defaultPlaybackRate;
 
     mediaState.update((state) => state.copyWith(
           state: useMinimizedPlayer ? VideoPlayerState.minimized : VideoPlayerState.fullScreen,
@@ -138,6 +139,9 @@ class VideoPlayerNotifier extends StateNotifier<MediaControlsWrapper> {
     if (media != null) {
       ref.read(playBackModel.notifier).update((state) => newPlaybackModel);
       await state.loadVideo(model, effectiveStartPosition, true);
+      if (!useMinimizedPlayer) {
+        await state.setSpeed(defaultPlaybackRate);
+      }
       await state.setVolume(ref.read(videoPlayerSettingsProvider).volume);
 
       await state.setAudioTrack(null, model);
