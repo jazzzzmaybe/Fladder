@@ -27,6 +27,7 @@ on:
         options:
           - release
           - nightly
+          - development
 
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
