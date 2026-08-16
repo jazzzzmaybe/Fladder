@@ -259,6 +259,7 @@ class _$VideoPlayerSettingsModelCopyWithImpl<$Res> implements $VideoPlayerSettin
       speedBoostRate: null == speedBoostRate
           ? _self.speedBoostRate
           : speedBoostRate // ignore: cast_nullable_to_non_nullable
+              as double,
       defaultPlaybackRate: null == defaultPlaybackRate
           ? _self.defaultPlaybackRate
           : defaultPlaybackRate // ignore: cast_nullable_to_non_nullable
@@ -1027,6 +1028,7 @@ class __$VideoPlayerSettingsModelCopyWithImpl<$Res> implements _$VideoPlayerSett
       speedBoostRate: null == speedBoostRate
           ? _self.speedBoostRate
           : speedBoostRate // ignore: cast_nullable_to_non_nullable
+              as double,
       defaultPlaybackRate: null == defaultPlaybackRate
           ? _self.defaultPlaybackRate
           : defaultPlaybackRate // ignore: cast_nullable_to_non_nullable
